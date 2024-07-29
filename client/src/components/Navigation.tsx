@@ -8,8 +8,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import {
+  AddBox,
   AutoAwesomeMosaic,
   Cast,
   ChevronLeft,
@@ -18,7 +18,8 @@ import {
   DeveloperBoard,
   Diversity1,
   Gavel,
-  Settings
+  Settings,
+  Storage
 } from '@mui/icons-material';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -94,29 +95,58 @@ export default function Navigation({children}) {
       <Drawer variant="permanent" open={open}>
         <List>
           {[
+            { name: "Temp1", icon: <Storage /> },
+          ].map((item, index) => (
+            <ListItem key={item.name} disablePadding sx={{ display: 'block' }}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText primary={item.name} sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+              sx={{
+                minheight: 48,
+                justifyContent: open ? 'initial': 'center',
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
+                }}
+              >
+                <AddBox />
+              </ListItemIcon>
+              <ListItemText primary="Add Server" sx={{ opacity: open ? 1 : 0}} />
+            </ListItemButton>
+          </ListItem>
+        </List>
+        <List sx={{ marginTop: "auto"}}>
+          {[
             {
               name: "Overview",
               icon: <AutoAwesomeMosaic />
-            },
-            {
-              name: "Console",
-              icon: <Cast />
-            },
-            {
-              name: "Studio",
-              icon: <DesignServices />
-            },
-            {
-              name: "Actions",
-              icon: <DeveloperBoard />
-            },
-            {
-              name: "Moderation",
-              icon: <Gavel />
-            },
-            {
-              name: "Loyalty",
-              icon: <Diversity1 />
             },
             {
               name: "Settings",
@@ -146,7 +176,7 @@ export default function Navigation({children}) {
           ))}
         </List>
         <Divider />
-        <DrawerHeader sx={{ width: "100%", marginTop: "auto"}}>
+        <DrawerHeader sx={{ width: "100%"}}>
           {open ? 
           <IconButton onClick={handleDrawerClose} color="light.main">
             {theme.direction === 'rtl' ? <ChevronRight /> : <ChevronLeft />}
