@@ -1,12 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import { setOnboardComplete } from '../../data/slices/onboarding';
 
 export default () => {
   const [serverURIProvided, setServerURIProvided] = useState(false);
   const [serverNicknameProvided, setServerNicknameProvided] = useState(false);
   const [formData, setFormData] = useState({});
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const isValidKey = (value) => {
     return /[a-z\d]+/i.test(value);
@@ -61,6 +66,8 @@ export default () => {
 
   const handleSubmit = () => {
     console.log(formData);
+    dispatch(setOnboardComplete());
+    navigate('/tour');
   }
 
   return (
