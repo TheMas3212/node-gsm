@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link as RouterLink } from "react-router-dom";
 import { styled, useTheme, CSSObject } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -49,6 +50,12 @@ const closedMixin = (theme: Theme): CSSObject => ({
   },
 });
 
+const Link = React.forwardRef<HTMLAnchorElement, RouterLinkProps>(
+  function Link(itemProps, ref) {
+    return <RouterLink ref={ref} {...itemProps} role={undefined} />;
+  },
+);
+
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -95,9 +102,14 @@ export default function Navigation({children}) {
       <Drawer variant="permanent" open={open}>
         <List>
           {[
-            { name: "Temp1", icon: <Storage /> },
+            {
+              name: "Temp1",
+              serverName: "12345",
+              route: '/',
+              icon: <Storage />
+            },
           ].map((item, index) => (
-            <ListItem key={item.name} disablePadding sx={{ display: 'block' }}>
+            <ListItem key={item.name} disablePadding sx={{ display: 'block' }} component={Link} to={item.route}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -114,14 +126,14 @@ export default function Navigation({children}) {
                 >
                   {item.icon}
                 </ListItemIcon>
-                <ListItemText primary={item.name} sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary={item.name} secondary={item.serverName} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
         <Divider />
         <List>
-          <ListItem disablePadding sx={{ display: 'block' }}>
+          <ListItem disablePadding sx={{ display: 'block' }} component={Link} to={'/'}>
             <ListItemButton
               sx={{
                 minheight: 48,
@@ -146,14 +158,16 @@ export default function Navigation({children}) {
           {[
             {
               name: "Overview",
+              reoute: "/",
               icon: <AutoAwesomeMosaic />
             },
             {
               name: "Settings",
+              route: "/",
               icon: <Settings />
             }
           ].map((item, index) => (
-            <ListItem key={item.name} disablePadding sx={{ display: 'block' }}>
+            <ListItem key={item.name} disablePadding sx={{ display: 'block' }} component={Link} to={item.route}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
