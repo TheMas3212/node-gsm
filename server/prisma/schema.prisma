@@ -6,6 +6,24 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgres"
   url      = env("DATABASE_URL")
+}
+
+model Instance {
+  id      String    @id @db.Uuid
+  name    String    @unique
+}
+
+model AccessKey {
+  id      String    @id @db.Uuid
+  name    String
+  key     Bytes
+  scopes  String[]
+}
+
+model Settings {
+  name    String    @id
+  text    String    @default("")
+  blob    Bytes     @default("")
 }

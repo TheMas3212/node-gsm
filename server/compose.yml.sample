@@ -1,0 +1,12 @@
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    shm_size: 128mb
+    environment:
+      POSTGRES_PASSWORD: "PASSWORD_HERE"
+      POSTGRES_DB: "nodegsm"
+    volumes:
+      - "./db:/var/lib/postgresql/data"
+    ports:
+      - "127.0.0.1:5432:5432"

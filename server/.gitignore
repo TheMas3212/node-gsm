@@ -13,6 +13,7 @@ dist-ssr
 dev-dist
 *.local
 .env
+compose.yml
 
 # Editor directories and files
 .vscode/*
