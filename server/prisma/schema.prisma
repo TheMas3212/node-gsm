@@ -15,14 +15,14 @@ model Instance {
   name    String    @unique
 }
 
-model AccessKey {
+model Token {
   id      String    @id @db.Uuid
   name    String
   key     Bytes
   scopes  String[]
 }
 
-model Settings {
+model Setting {
   name    String    @id
   text    String    @default("")
   blob    Bytes     @default("")
